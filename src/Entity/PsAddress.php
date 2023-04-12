@@ -2,8 +2,8 @@
 
 namespace CubaDevOps\GraphApi\Entity;
 
-use CubaDevOps\Doctrine\ORM\Mapping as ORM;
-use CubaDevOps\Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
 /**
  * PsAddress
  *

@@ -293,6 +293,12 @@ class PsProductLang
      */
     private PsProduct $ps_product;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="PsShop")
+     * O
+     */
+    private PsShop $shop;
+
 
     /**
      * @var int

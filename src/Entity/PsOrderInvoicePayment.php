@@ -2,7 +2,7 @@
 
 namespace CubaDevOps\GraphApi\Entity;
 
-use CubaDevOps\Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM;
 /**
  * PsOrderInvoicePayment
  *
