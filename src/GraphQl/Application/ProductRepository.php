@@ -37,6 +37,7 @@ class ProductRepository
     /**
      * @Query
      * @param int $id
+     * @param int $id_lang
      * @return PsProductLang
      */
     public function localizedProduct(int $id,int $id_lang):PsProductLang
