@@ -1,0 +1,24 @@
+services:
+  _defaults:
+    public: true
+    autowire: true
+    autoconfigure: true
+
+  legacy_context:
+    class: Context
+    factory: [ 'Context','getContext' ]
+
+  CubaDevOps\GraphApi\Application\ConfigurationRepository:
+    class: CubaDevOps\GraphApi\Application\ConfigurationRepository
+    arguments:
+      - '@legacy_context'
+
+  CubaDevOps\GraphApi\Application\MigrationsLoader:
+    class: CubaDevOps\GraphApi\Application\MigrationsLoader
+
+  CubaDevOps\GraphApi\EventSubscriber\InstallerManager:
+    class: CubaDevOps\GraphApi\EventSubscriber\InstallerManager
+    arguments:
+      - '@CubaDevOps\GraphApi\Application\MigrationsLoader'
+    tags:
+      - { name: kernel.event_subscriber }

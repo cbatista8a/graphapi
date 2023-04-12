@@ -1,0 +1,8 @@
+front-example:
+  path: graph-api
+  methods: [GET]
+  defaults:
+#    is mandatory the name of module for custom legacy routes loader
+    _module: 'graphapi'
+    _controller: 'graphapi'
+    _legacy_controller: AdminController

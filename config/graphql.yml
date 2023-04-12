@@ -1,0 +1,25 @@
+services:
+  _defaults:
+    public: true
+    autowire: true
+    autoconfigure: true
+
+  CubaDevOps\GraphApi\GraphQl\Infrastructure\PsrContainer:
+    class: CubaDevOps\GraphApi\GraphQl\Infrastructure\PsrContainer
+    arguments:
+      - '@service_container'
+
+  CubaDevOps\GraphApi\GraphQl\Infrastructure\ApiHandler:
+    class: CubaDevOps\GraphApi\GraphQl\Infrastructure\ApiHandler
+    arguments:
+      - '@CubaDevOps\GraphApi\GraphQl\Infrastructure\PsrContainer'
+
+
+  #  Repository services ---------------------------------------------
+
+  Doctrine\ORM\EntityManagerInterface: '@doctrine.orm.default_entity_manager'
+
+  CubaDevOps\GraphApi\GraphQl\Application\ProductRepository:
+    class: CubaDevOps\GraphApi\GraphQl\Application\ProductRepository
+    arguments:
+      - '@Doctrine\ORM\EntityManagerInterface'

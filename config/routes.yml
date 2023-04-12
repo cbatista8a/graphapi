@@ -1,0 +1,6 @@
+example:
+  path: graphapi/example
+  methods: [GET]
+  defaults:
+    _controller: 'CubaDevOps\GraphApi\Controllers\Admin\Example::example'
+    _disable_module_prefix: true

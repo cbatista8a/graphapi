@@ -1,0 +1,53 @@
+{
+  "name": "cbatista8a/prestashop-graphapi-module",
+  "description": "Advanced API for Prestashop development",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Cuba DevOps",
+      "email": "info@cubadevops.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "CubaDevOps\\GraphApi\\" : "src/"
+    },
+    "classmap": [
+      "controllers",
+      "graphapi.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "CubaDevOps\\GraphApi\\Tests\\": "tests/"
+    },
+    "classmap": [
+      "controllers",
+      "graphapi.php"
+    ]
+  },
+  "require": {
+    "php": ">=7.0",
+    "thecodingmachine/graphqlite": "^6.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.6",
+    "humbug/php-scoper": "^0.17.5",
+    "friendsofphp/php-cs-fixer": "*"
+  },
+  "config": {
+    "prepend-autoloader": false,
+    "allow-plugins": {
+      "bamarni/composer-bin-plugin": true
+    }
+  },
+  "type": "prestashop-module",
+  "scripts": {
+    "format": "./vendor/bin/php-cs-fixer fix . --rules=@PSR12,@Symfony",
+    "test": "./vendor/bin/phpunit tests",
+    "prefix-namespace": "vendor/bin/php-scoper add-prefix --force",
+    "clean": "rm -rf vendor composer.lock",
+    "build": "mv build vendor"
+  }
+}
