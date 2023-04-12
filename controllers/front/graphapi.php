@@ -15,8 +15,6 @@
  */
 
 use CubaDevOps\GraphApi\GraphQl\Infrastructure\ApiHandler;
-use CubaDevOps\GraphApi\GraphQl\Infrastructure\PsrContainer;
-use Psr\Container\ContainerInterface;
 
 
 class graphapiGraphApiModuleFrontController extends ModuleFrontController
@@ -33,10 +31,6 @@ class graphapiGraphApiModuleFrontController extends ModuleFrontController
         $vars = $input['variables'] ?? null;
 
         try {
-            /** @var ContainerInterface $symfony_container */
-//            $symfony_container = $this->get('service_container');
-//            $psr = new PsrContainer($symfony_container);
-//            $api = new ApiHandler($psr);
             $result['response'] = $this->get(ApiHandler::class)->handle($query,$vars);
         }catch (Exception $exception){
             $result['errors'] = $exception->getMessage();

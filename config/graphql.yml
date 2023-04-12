@@ -23,3 +23,8 @@ services:
     class: CubaDevOps\GraphApi\GraphQl\Application\ProductRepository
     arguments:
       - '@Doctrine\ORM\EntityManagerInterface'
+
+  CubaDevOps\GraphApi\GraphQl\Application\ShopRepository:
+    class: CubaDevOps\GraphApi\GraphQl\Application\ShopRepository
+    arguments:
+      - '@Doctrine\ORM\EntityManagerInterface'
