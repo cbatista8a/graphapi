@@ -18,7 +18,7 @@ class PsLang
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idLang;
+    private $id;
     /**
      * @var string
      *

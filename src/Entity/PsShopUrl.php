@@ -18,7 +18,7 @@ class PsShopUrl
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idShopUrl;
+    private $id;
     /**
      * @var int
      *
