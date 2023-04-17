@@ -27,13 +27,23 @@ class PsProduct
 
     /**
      * @var Collection<int,PsProductLang>
-     * @ORM\OneToMany(targetEntity="PsProductLang", mappedBy="ps_product")
+     * @ORM\OneToMany(targetEntity="PsProductLang", mappedBy="product")
      */
-    private Collection $langs;
+    private Collection $localized_fields;
+
+    /**
+     * @var Collection<int, PsCategory>
+     * @ORM\ManyToMany(targetEntity="PsCategory", inversedBy="products")
+     * @ORM\JoinTable(name="ps_category_product",
+     *      joinColumns={@ORM\JoinColumn(name="id_product", referencedColumnName="id_product")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="id_category", referencedColumnName="id_category")})
+     */
+    private Collection $categories;
 
     public function __construct()
     {
-        $this->langs = new ArrayCollection();
+        $this->localized_fields = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     /**
@@ -479,7 +489,7 @@ class PsProduct
      * @Field
      * @return bool
      */
-    public function getQuantityDiscount()
+    public function hasQuantityDiscount()
     {
         return $this->quantityDiscount;
     }
@@ -922,7 +932,7 @@ class PsProduct
     }
 
     /**
-     * @Field(outputType="ID")
+     * @Field
      * @return int
      */
     public function getId(): int
@@ -1228,18 +1238,46 @@ class PsProduct
 
     /**
      * @Field
+     * @param int $id_lang
      * @return PsProductLang[]
      */
-    public function getLangs(): array
+    public function getLocalizedFields(int $id_lang = 0): array
     {
-        return $this->langs->getValues();
+        if ($id_lang){
+            foreach ($this->localized_fields->getValues() as $languaje){
+                if ($languaje->getLang()->getId() == $id_lang)
+                    return [$languaje];
+            }
+        }
+        return $this->localized_fields->getValues();
     }
 
     /**
-     * @param Collection $langs
+     * @param PsProductLang $lang
+     * @return PsProduct
      */
-    public function setLangs(Collection $langs): void
+    public function setLang(PsProductLang $lang): PsProduct
     {
-        $this->langs = $langs;
+        $this->localized_fields->add($lang);
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return PsCategory[]
+     */
+    public function getCategories(): array
+    {
+        return $this->categories->getValues();
+    }
+
+    /**
+     * @param PsCategory $category
+     * @return PsProduct
+     */
+    public function addCategory(PsCategory $category): PsProduct
+    {
+        $this->categories->add($category);
+        return $this;
     }
 }

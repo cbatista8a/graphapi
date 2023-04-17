@@ -20,7 +20,7 @@ class PsProductLang
      */
     public function getProduct(): PsProduct
     {
-        return $this->ps_product;
+        return $this->product;
     }
 
     /**
@@ -29,45 +29,46 @@ class PsProductLang
      */
     public function setProduct(PsProduct $ps_product): PsProductLang
     {
-        $this->ps_product = $ps_product;
+        $ps_product->setLang($this);
+        $this->product = $ps_product;
         return $this;
     }
 
     /**
      * @Field
-     * @return int
+     * @return PsShop
      */
-    public function getIdShop()
+    public function getShop(): PsShop
     {
-        return $this->idShop;
+        return $this->shop;
     }
 
     /**
-     * @param int $idShop
+     * @param PsShop $shop
      * @return PsProductLang
      */
-    public function setIdShop(int $idShop)
+    public function setShop(PsShop $shop): PsProductLang
     {
-        $this->idShop = $idShop;
+        $this->shop = $shop;
         return $this;
     }
 
     /**
      * @Field
-     * @return int
+     * @return PsLang
      */
-    public function getIdLang(): int
+    public function getLang(): PsLang
     {
-        return $this->idLang;
+        return $this->lang;
     }
 
     /**
-     * @param int $idLang
+     * @param PsLang $lang
      * @return PsProductLang
      */
-    public function setIdLang(int $idLang): PsProductLang
+    public function setLang(PsLang $lang): PsProductLang
     {
-        $this->idLang = $idLang;
+        $this->lang = $lang;
         return $this;
     }
 
@@ -279,43 +280,28 @@ class PsProductLang
         $this->deliveryOutStock = $deliveryOutStock;
         return $this;
     }
-    /**
-     * @var int
-     * @ORM\Column(name="id_product", type="integer", nullable=false, options={"unsigned"=true})
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     */
-    private int $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="PsProduct", inversedBy="langs")
+     * @ORM\Id
+     * @ORM\ManyToOne(targetEntity="PsProduct", inversedBy="localized_fields")
      * @ORM\JoinColumn(name="id_product", referencedColumnName="id_product")
      */
-    private PsProduct $ps_product;
+    private PsProduct $product;
 
     /**
+     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="PsShop")
-     * O
+     * @ORM\JoinColumn(name="id_shop", referencedColumnName="id_shop")
      */
     private PsShop $shop;
 
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id_shop", type="integer", nullable=false, options={"default"="1","unsigned"=true})
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\ManyToOne(targetEntity="PsLang")
+     * @ORM\JoinColumn(name="id_lang", referencedColumnName="id_lang")
      */
-    private $idShop = '1';
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_lang", type="integer", nullable=false, options={"unsigned"=true})
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     */
-    private $idLang;
+    private PsLang $lang;
     /**
      * @var string|null
      *

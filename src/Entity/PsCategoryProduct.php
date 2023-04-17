@@ -12,21 +12,22 @@ use Doctrine\ORM\Mapping as ORM;
 class PsCategoryProduct
 {
     /**
-     * @var int
-     *
      * @ORM\Column(name="id_category", type="integer", nullable=false, options={"unsigned"=true})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\ManyToOne(targetEntity="PsCategory")
+     * @ORM\JoinColumn(name='id_category', referencedColumnName='id_category')
      */
-    private $idCategory;
+    private PsCategory $category;
+
     /**
-     * @var int
-     *
      * @ORM\Column(name="id_product", type="integer", nullable=false, options={"unsigned"=true})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\ManyToOne(targetEntity="PsProduct")
+     * @ORM\JoinColumn(name='id_product', referencedColumnName='id_product')
      */
-    private $idProduct;
+    private PsProduct $product;
     /**
      * @var int
      *
