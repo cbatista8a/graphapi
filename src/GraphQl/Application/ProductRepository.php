@@ -17,10 +17,10 @@ class ProductRepository
     /**
      * @Query
      * @param int $id
-     * @return PsProduct
+     * @return PsProduct|null
      * @noinspection PhpIncompatibleReturnTypeInspection
      */
-    public function product(int $id): PsProduct
+    public function product(int $id): ?PsProduct
     {
         return $this->entity_manager->find(PsProduct::class, $id);
     }
@@ -32,18 +32,5 @@ class ProductRepository
     public function products():array
     {
         return $this->entity_manager->getRepository(PsProduct::class)->findAll();
-    }
-
-    /**
-     * @Query
-     * @param int $id
-     * @param int $id_lang
-     * @return PsProductLang
-     */
-    public function localizedProduct(int $id,int $id_lang):PsProductLang
-    {
-        /** @var PsProductLang $product_lang */
-        $product_lang = $this->entity_manager->getRepository(PsProductLang::class)->findOneBy(['id' => $id,'idLang' => $id_lang]);
-        return $product_lang;
     }
 }
