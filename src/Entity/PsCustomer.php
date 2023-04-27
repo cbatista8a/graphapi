@@ -109,7 +109,7 @@ class PsCustomer
     private $passwd;
 
     /**
-     * @var \DateTime|null
+     * @var \DateTimeImmutable|null
      *
      * @ORM\Column(name="birthday", type="date", nullable=true)
      */
@@ -127,7 +127,7 @@ class PsCustomer
      */
     private $ipRegistrationNewsletter;
     /**
-     * @var \DateTime|null
+     * @var \DateTimeImmutable|null
      *
      * @ORM\Column(name="newsletter_date_add", type="datetime", nullable=true)
      */
@@ -197,13 +197,13 @@ class PsCustomer
      *
      * @ORM\Column(name="date_add", type="datetime", nullable=false)
      */
-    private $dateAdd;
+    private $date_add;
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="date_upd", type="datetime", nullable=false)
      */
-    private $dateUpd;
+    private $date_upd;
     /**
      * @var string|null
      *
@@ -244,4 +244,460 @@ class PsCustomer
         $this->addresses->add($address);
         return $this;
     }
+
+    /**
+     * @Field
+     * @return int
+     */
+    public function getIdShopGroup()
+    {
+        return $this->idShopGroup;
+    }
+
+    /**
+     * @param int $idShopGroup
+     * @return PsCustomer
+     */
+    public function setIdShopGroup(int $idShopGroup)
+    {
+        $this->idShopGroup = $idShopGroup;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return PsShop
+     */
+    public function getShop(): PsShop
+    {
+        return $this->shop;
+    }
+
+    /**
+     * @param PsShop $shop
+     * @return PsCustomer
+     */
+    public function setShop(PsShop $shop): PsCustomer
+    {
+        $this->shop = $shop;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return int
+     */
+    public function getIdGender(): int
+    {
+        return $this->idGender;
+    }
+
+    /**
+     * @param int $idGender
+     * @return PsCustomer
+     */
+    public function setIdGender(int $idGender): PsCustomer
+    {
+        $this->idGender = $idGender;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return int
+     */
+    public function getIdDefaultGroup()
+    {
+        return $this->idDefaultGroup;
+    }
+
+    /**
+     * @param int $idDefaultGroup
+     * @return PsCustomer
+     */
+    public function setIdDefaultGroup(int $idDefaultGroup)
+    {
+        $this->idDefaultGroup = $idDefaultGroup;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return PsLang
+     */
+    public function getLang(): PsLang
+    {
+        return $this->lang;
+    }
+
+    /**
+     * @param PsLang $lang
+     * @return PsCustomer
+     */
+    public function setLang(PsLang $lang): PsCustomer
+    {
+        $this->lang = $lang;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return string|null
+     */
+    public function getCompany(): ?string
+    {
+        return $this->company;
+    }
+
+    /**
+     * @param string|null $company
+     * @return PsCustomer
+     */
+    public function setCompany(?string $company): PsCustomer
+    {
+        $this->company = $company;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return string|null
+     */
+    public function getSiret(): ?string
+    {
+        return $this->siret;
+    }
+
+    /**
+     * @param string|null $siret
+     * @return PsCustomer
+     */
+    public function setSiret(?string $siret): PsCustomer
+    {
+        $this->siret = $siret;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return string|null
+     */
+    public function getApe(): ?string
+    {
+        return $this->ape;
+    }
+
+    /**
+     * @param string|null $ape
+     * @return PsCustomer
+     */
+    public function setApe(?string $ape): PsCustomer
+    {
+        $this->ape = $ape;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return string
+     */
+    public function getFirstname(): string
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * @param string $firstname
+     * @return PsCustomer
+     */
+    public function setFirstname(string $firstname): PsCustomer
+    {
+        $this->firstname = $firstname;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return string
+     */
+    public function getLastname(): string
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * @param string $lastname
+     * @return PsCustomer
+     */
+    public function setLastname(string $lastname): PsCustomer
+    {
+        $this->lastname = $lastname;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     * @return PsCustomer
+     */
+    public function setEmail(string $email): PsCustomer
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return \DateTimeImmutable|null
+     */
+    public function getBirthday(): ?\DateTimeImmutable
+    {
+        return $this->birthday;
+    }
+
+    /**
+     * @param \DateTimeImmutable|null $birthday
+     * @return PsCustomer
+     */
+    public function setBirthday(?\DateTimeImmutable $birthday): PsCustomer
+    {
+        $this->birthday = $birthday;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return bool
+     */
+    public function getNewsletter()
+    {
+        return $this->newsletter;
+    }
+
+    /**
+     * @param bool $newsletter
+     * @return PsCustomer
+     */
+    public function setNewsletter(bool $newsletter)
+    {
+        $this->newsletter = $newsletter;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return bool
+     */
+    public function getOptin()
+    {
+        return $this->optin;
+    }
+
+    /**
+     * @param bool $optin
+     * @return PsCustomer
+     */
+    public function setOptin(bool $optin)
+    {
+        $this->optin = $optin;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return string|null
+     */
+    public function getWebsite(): ?string
+    {
+        return $this->website;
+    }
+
+    /**
+     * @param string|null $website
+     * @return PsCustomer
+     */
+    public function setWebsite(?string $website): PsCustomer
+    {
+        $this->website = $website;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return bool
+     */
+    public function getShowPublicPrices()
+    {
+        return $this->showPublicPrices;
+    }
+
+    /**
+     * @param bool $showPublicPrices
+     * @return PsCustomer
+     */
+    public function setShowPublicPrices(bool $showPublicPrices): PsCustomer
+    {
+        $this->showPublicPrices = $showPublicPrices;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return string|null
+     */
+    public function getNote(): ?string
+    {
+        return $this->note;
+    }
+
+    /**
+     * @param string|null $note
+     * @return PsCustomer
+     */
+    public function setNote(?string $note): PsCustomer
+    {
+        $this->note = $note;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return bool
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param bool $active
+     * @return PsCustomer
+     */
+    public function setActive(bool $active)
+    {
+        $this->active = $active;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return bool
+     */
+    public function getIsGuest()
+    {
+        return $this->isGuest;
+    }
+
+    /**
+     * @param bool $isGuest
+     * @return PsCustomer
+     */
+    public function setIsGuest(bool $isGuest)
+    {
+        $this->isGuest = $isGuest;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return bool
+     */
+    public function isDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * @param bool $deleted
+     * @return PsCustomer
+     */
+    public function setDeleted(bool $deleted)
+    {
+        $this->deleted = $deleted;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return \DateTimeImmutable
+     */
+    public function getDateAdd(): \DateTimeImmutable
+    {
+        return \DateTimeImmutable::createFromMutable($this->date_add);
+    }
+
+    /**
+     * @return PsCustomer
+     */
+    public function setDateAdd(): PsCustomer
+    {
+        $this->date_add = new \DateTimeImmutable();
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return \DateTimeImmutable
+     */
+    public function getDateUpd(): \DateTimeImmutable
+    {
+        return \DateTimeImmutable::createFromMutable($this->date_upd);
+    }
+
+    /**
+     * @return PsCustomer
+     */
+    public function setDateUpd(): PsCustomer
+    {
+        $this->date_upd = new \DateTimeImmutable();
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return string|null
+     */
+    public function getResetPasswordToken(): ?string
+    {
+        return $this->resetPasswordToken;
+    }
+
+    /**
+     * @param string $resetPasswordToken
+     * @return PsCustomer
+     */
+    public function setResetPasswordToken(string $resetPasswordToken): PsCustomer
+    {
+        $this->resetPasswordToken = $resetPasswordToken;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return \DateTimeImmutable|null
+     */
+    public function getResetPasswordValidity(): ?\DateTimeImmutable
+    {
+        return \DateTimeImmutable::createFromMutable($this->resetPasswordValidity);
+    }
+
+    /**
+     * @param \DateTimeImmutable $resetPasswordValidity
+     * @return PsCustomer
+     */
+    public function setResetPasswordValidity(\DateTimeImmutable $resetPasswordValidity): PsCustomer
+    {
+        $this->resetPasswordValidity = $resetPasswordValidity;
+        return $this;
+    }
+
+
 }
