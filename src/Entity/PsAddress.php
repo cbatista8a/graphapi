@@ -141,13 +141,13 @@ class PsAddress
      */
     private $dni;
     /**
-     * @var \DateTime
+     * @var \DateTimeImmutable
      *
      * @ORM\Column(name="date_add", type="datetime", nullable=false)
      */
     private $date_add;
     /**
-     * @var \DateTime
+     * @var \DateTimeImmutable
      *
      * @ORM\Column(name="date_upd", type="datetime", nullable=false)
      */
@@ -169,7 +169,7 @@ class PsAddress
      * @Field
      * @return PsCountry
      */
-    public function getCountry()
+    public function getCountry(): PsCountry
     {
         return $this->country;
     }
@@ -196,7 +196,7 @@ class PsAddress
      * @param PsCustomer $customer
      * @return PsAddress
      */
-    public function setCustomer(PsCustomer $customer): self
+    public function setCustomer(PsCustomer $customer): PsAddress
     {
         $customer->addAddress($this);
         $this->customer = $customer;
@@ -235,7 +235,7 @@ class PsAddress
      * @param int $id_manufacturer
      * @return PsAddress
      */
-    public function setIdManufacturer(int $id_manufacturer)
+    public function setIdManufacturer(int $id_manufacturer): PsAddress
     {
         $this->id_manufacturer = $id_manufacturer;
         return $this;
@@ -254,7 +254,7 @@ class PsAddress
      * @param int $id_supplier
      * @return PsAddress
      */
-    public function setIdSupplier(int $id_supplier)
+    public function setIdSupplier(int $id_supplier): PsAddress
     {
         $this->id_supplier = $id_supplier;
         return $this;
@@ -273,7 +273,7 @@ class PsAddress
      * @param int $id_warehouse
      * @return PsAddress
      */
-    public function setIdWarehouse(int $id_warehouse)
+    public function setIdWarehouse(int $id_warehouse): PsAddress
     {
         $this->id_warehouse = $id_warehouse;
         return $this;
@@ -308,10 +308,10 @@ class PsAddress
     }
 
     /**
-     * @param string|null $company
+     * @param string $company
      * @return PsAddress
      */
-    public function setCompany(?string $company): PsAddress
+    public function setCompany(string $company): PsAddress
     {
         $this->company = $company;
         return $this;
@@ -384,10 +384,10 @@ class PsAddress
     }
 
     /**
-     * @param string|null $address2
+     * @param string $address2
      * @return PsAddress
      */
-    public function setAddress2(?string $address2): PsAddress
+    public function setAddress2(string $address2): PsAddress
     {
         $this->address2 = $address2;
         return $this;
@@ -403,10 +403,10 @@ class PsAddress
     }
 
     /**
-     * @param string|null $postcode
+     * @param string $postcode
      * @return PsAddress
      */
-    public function setPostcode(?string $postcode): PsAddress
+    public function setPostcode(string $postcode): PsAddress
     {
         $this->postcode = $postcode;
         return $this;
@@ -441,10 +441,10 @@ class PsAddress
     }
 
     /**
-     * @param string|null $other
+     * @param string $other
      * @return PsAddress
      */
-    public function setOther(?string $other): PsAddress
+    public function setOther(string $other): PsAddress
     {
         $this->other = $other;
         return $this;
@@ -460,10 +460,10 @@ class PsAddress
     }
 
     /**
-     * @param string|null $phone
+     * @param string $phone
      * @return PsAddress
      */
-    public function setPhone(?string $phone): PsAddress
+    public function setPhone(string $phone): PsAddress
     {
         $this->phone = $phone;
         return $this;
@@ -479,10 +479,10 @@ class PsAddress
     }
 
     /**
-     * @param string|null $phone_mobile
+     * @param string $phone_mobile
      * @return PsAddress
      */
-    public function setPhoneMobile(?string $phone_mobile): PsAddress
+    public function setPhoneMobile(string $phone_mobile): PsAddress
     {
         $this->phone_mobile = $phone_mobile;
         return $this;
@@ -498,10 +498,10 @@ class PsAddress
     }
 
     /**
-     * @param string|null $vat_number
+     * @param string $vat_number
      * @return PsAddress
      */
-    public function setVatNumber(?string $vat_number): PsAddress
+    public function setVatNumber(string $vat_number): PsAddress
     {
         $this->vat_number = $vat_number;
         return $this;
@@ -517,10 +517,10 @@ class PsAddress
     }
 
     /**
-     * @param string|null $dni
+     * @param string $dni
      * @return PsAddress
      */
-    public function setDni(?string $dni): PsAddress
+    public function setDni(string $dni): PsAddress
     {
         $this->dni = $dni;
         return $this;
@@ -528,18 +528,18 @@ class PsAddress
 
     /**
      * @Field
-     * @return \DateTime
+     * @return \DateTimeImmutable
      */
-    public function getDateAdd(): \DateTime
+    public function getDateAdd(): \DateTimeImmutable
     {
         return $this->date_add;
     }
 
     /**
-     * @param \DateTime $date_add
+     * @param \DateTimeImmutable $date_add
      * @return PsAddress
      */
-    public function setDateAdd(\DateTime $date_add): PsAddress
+    public function setDateAdd(\DateTimeImmutable $date_add): PsAddress
     {
         $this->date_add = $date_add;
         return $this;
@@ -547,18 +547,18 @@ class PsAddress
 
     /**
      * @Field
-     * @return \DateTime
+     * @return \DateTimeImmutable
      */
-    public function getDateUpd(): \DateTime
+    public function getDateUpd(): \DateTimeImmutable
     {
         return $this->date_upd;
     }
 
     /**
-     * @param \DateTime $date_upd
+     * @param \DateTimeImmutable $date_upd
      * @return PsAddress
      */
-    public function setDateUpd(\DateTime $date_upd): PsAddress
+    public function setDateUpd(\DateTimeImmutable $date_upd): PsAddress
     {
         $this->date_upd = $date_upd;
         return $this;
@@ -587,7 +587,7 @@ class PsAddress
      * @Field
      * @return bool
      */
-    public function getDeleted()
+    public function isDeleted()
     {
         return $this->deleted;
     }
