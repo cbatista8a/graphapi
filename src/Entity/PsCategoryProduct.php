@@ -16,7 +16,7 @@ class PsCategoryProduct
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\ManyToOne(targetEntity="PsCategory")
-     * @ORM\JoinColumn(name='id_category', referencedColumnName='id_category')
+     * @ORM\JoinColumn(name="id_category", referencedColumnName="id_category")
      */
     private PsCategory $category;
 
@@ -25,7 +25,7 @@ class PsCategoryProduct
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\ManyToOne(targetEntity="PsProduct")
-     * @ORM\JoinColumn(name='id_product', referencedColumnName='id_product')
+     * @ORM\JoinColumn(name="id_product", referencedColumnName="id_product")
      */
     private PsProduct $product;
     /**
@@ -33,5 +33,5 @@ class PsCategoryProduct
      *
      * @ORM\Column(name="position", type="integer", nullable=false, options={"unsigned"=true})
      */
-    private $position = '0';
+    private $position = 1;
 }

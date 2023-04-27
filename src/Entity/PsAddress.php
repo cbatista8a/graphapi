@@ -2,11 +2,13 @@
 
 namespace CubaDevOps\GraphApi\Entity;
 
+use CubaDevOps\TheCodingMachine\GraphQLite\Annotations\Field;
+use CubaDevOps\TheCodingMachine\GraphQLite\Annotations\Type;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 /**
  * PsAddress
- *
+ *@Type
  * @ORM\Table(name="ps_address", indexes={@ORM\Index(name="id_manufacturer", columns={"id_manufacturer"}), @ORM\Index(name="id_state", columns={"id_state"}), @ORM\Index(name="id_warehouse", columns={"id_warehouse"}), @ORM\Index(name="id_country", columns={"id_country"}), @ORM\Index(name="id_supplier", columns={"id_supplier"}), @ORM\Index(name="address_customer", columns={"id_customer"})})
  * @ORM\Entity
  */
@@ -19,29 +21,26 @@ class PsAddress
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id_address;
+    private $id;
+
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id_country", type="integer", nullable=false, options={"unsigned"=true})
      * @ORM\ManyToOne(targetEntity="PsCountry")
-     * @JoinColumn(name="id_country", referencedColumnName="id")
+     * @JoinColumn(name="id_country", referencedColumnName="id_country")
      */
-    private $id_country;
+    private PsCountry $country;
+
     /**
-     * @var int|null
      *
-     * @ORM\Column(name="id_state", type="integer", nullable=true, options={"unsigned"=true})
-     * @ORM\ManyToOne(targetEntity="PsState",inversedBy="idState")
+     * @ORM\ManyToOne(targetEntity="PsState")
+     * @JoinColumn(name="id_state", referencedColumnName="id_state")
      */
-    private $id_state;
+    private PsState $state;
+
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id_customer", type="integer", nullable=false, options={"unsigned"=true})
-     * @ORM\ManyToOne(targetEntity="PsCustomer",inversedBy="idCustomer")
+     * @ORM\ManyToOne(targetEntity="PsCustomer",inversedBy="addresses")
+     * @JoinColumn(name="id_customer", referencedColumnName="id_customer")
      */
-    private $id_customer = '0';
+    private PsCustomer $customer;
     /**
      * @var int
      *
@@ -158,18 +157,450 @@ class PsAddress
      *
      * @ORM\Column(name="active", type="boolean", nullable=false, options={"default"="1"})
      */
-    private $active = \true;
+    private $active = true;
     /**
      * @var bool
      *
      * @ORM\Column(name="deleted", type="boolean", nullable=false)
      */
     private $deleted = '0';
+
     /**
-     * @return mixed
+     * @Field
+     * @return PsCountry
      */
     public function getCountry()
     {
-        return $this->id_country;
+        return $this->country;
     }
+
+    /**
+     * @Field
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @Field
+     * @return PsCustomer
+     */
+    public function getCustomer(): PsCustomer
+    {
+        return $this->customer;
+    }
+
+    /**
+     * @param PsCustomer $customer
+     * @return PsAddress
+     */
+    public function setCustomer(PsCustomer $customer): self
+    {
+        $customer->addAddress($this);
+        $this->customer = $customer;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return PsState
+     */
+    public function getState(): PsState
+    {
+        return $this->state;
+    }
+
+    /**
+     * @param PsState $state
+     * @return PsAddress
+     */
+    public function setState(PsState $state): PsAddress
+    {
+        $this->state = $state;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return int
+     */
+    public function getIdManufacturer()
+    {
+        return $this->id_manufacturer;
+    }
+
+    /**
+     * @param int $id_manufacturer
+     * @return PsAddress
+     */
+    public function setIdManufacturer(int $id_manufacturer)
+    {
+        $this->id_manufacturer = $id_manufacturer;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return int
+     */
+    public function getIdSupplier()
+    {
+        return $this->id_supplier;
+    }
+
+    /**
+     * @param int $id_supplier
+     * @return PsAddress
+     */
+    public function setIdSupplier(int $id_supplier)
+    {
+        $this->id_supplier = $id_supplier;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return int
+     */
+    public function getIdWarehouse()
+    {
+        return $this->id_warehouse;
+    }
+
+    /**
+     * @param int $id_warehouse
+     * @return PsAddress
+     */
+    public function setIdWarehouse(int $id_warehouse)
+    {
+        $this->id_warehouse = $id_warehouse;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return string
+     */
+    public function getAlias(): string
+    {
+        return $this->alias;
+    }
+
+    /**
+     * @param string $alias
+     * @return PsAddress
+     */
+    public function setAlias(string $alias): PsAddress
+    {
+        $this->alias = $alias;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return string|null
+     */
+    public function getCompany(): ?string
+    {
+        return $this->company;
+    }
+
+    /**
+     * @param string|null $company
+     * @return PsAddress
+     */
+    public function setCompany(?string $company): PsAddress
+    {
+        $this->company = $company;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return string
+     */
+    public function getLastname(): string
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * @param string $lastname
+     * @return PsAddress
+     */
+    public function setLastname(string $lastname): PsAddress
+    {
+        $this->lastname = $lastname;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return string
+     */
+    public function getFirstname(): string
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * @param string $firstname
+     * @return PsAddress
+     */
+    public function setFirstname(string $firstname): PsAddress
+    {
+        $this->firstname = $firstname;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return string
+     */
+    public function getAddress1(): string
+    {
+        return $this->address1;
+    }
+
+    /**
+     * @param string $address1
+     * @return PsAddress
+     */
+    public function setAddress1(string $address1): PsAddress
+    {
+        $this->address1 = $address1;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return string|null
+     */
+    public function getAddress2(): ?string
+    {
+        return $this->address2;
+    }
+
+    /**
+     * @param string|null $address2
+     * @return PsAddress
+     */
+    public function setAddress2(?string $address2): PsAddress
+    {
+        $this->address2 = $address2;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return string|null
+     */
+    public function getPostcode(): ?string
+    {
+        return $this->postcode;
+    }
+
+    /**
+     * @param string|null $postcode
+     * @return PsAddress
+     */
+    public function setPostcode(?string $postcode): PsAddress
+    {
+        $this->postcode = $postcode;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return string
+     */
+    public function getCity(): string
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param string $city
+     * @return PsAddress
+     */
+    public function setCity(string $city): PsAddress
+    {
+        $this->city = $city;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return string|null
+     */
+    public function getOther(): ?string
+    {
+        return $this->other;
+    }
+
+    /**
+     * @param string|null $other
+     * @return PsAddress
+     */
+    public function setOther(?string $other): PsAddress
+    {
+        $this->other = $other;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return string|null
+     */
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param string|null $phone
+     * @return PsAddress
+     */
+    public function setPhone(?string $phone): PsAddress
+    {
+        $this->phone = $phone;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return string|null
+     */
+    public function getPhoneMobile(): ?string
+    {
+        return $this->phone_mobile;
+    }
+
+    /**
+     * @param string|null $phone_mobile
+     * @return PsAddress
+     */
+    public function setPhoneMobile(?string $phone_mobile): PsAddress
+    {
+        $this->phone_mobile = $phone_mobile;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return string|null
+     */
+    public function getVatNumber(): ?string
+    {
+        return $this->vat_number;
+    }
+
+    /**
+     * @param string|null $vat_number
+     * @return PsAddress
+     */
+    public function setVatNumber(?string $vat_number): PsAddress
+    {
+        $this->vat_number = $vat_number;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return string|null
+     */
+    public function getDni(): ?string
+    {
+        return $this->dni;
+    }
+
+    /**
+     * @param string|null $dni
+     * @return PsAddress
+     */
+    public function setDni(?string $dni): PsAddress
+    {
+        $this->dni = $dni;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return \DateTime
+     */
+    public function getDateAdd(): \DateTime
+    {
+        return $this->date_add;
+    }
+
+    /**
+     * @param \DateTime $date_add
+     * @return PsAddress
+     */
+    public function setDateAdd(\DateTime $date_add): PsAddress
+    {
+        $this->date_add = $date_add;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return \DateTime
+     */
+    public function getDateUpd(): \DateTime
+    {
+        return $this->date_upd;
+    }
+
+    /**
+     * @param \DateTime $date_upd
+     * @return PsAddress
+     */
+    public function setDateUpd(\DateTime $date_upd): PsAddress
+    {
+        $this->date_upd = $date_upd;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param bool $active
+     * @return PsAddress
+     */
+    public function setActive(bool $active): PsAddress
+    {
+        $this->active = $active;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return bool
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * @param bool $deleted
+     * @return PsAddress
+     */
+    public function setDeleted(bool $deleted)
+    {
+        $this->deleted = $deleted;
+        return $this;
+    }
+
+
 }

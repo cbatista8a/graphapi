@@ -33,3 +33,8 @@ services:
     class: CubaDevOps\GraphApi\GraphQl\Application\CategoryRepository
     arguments:
       - '@Doctrine\ORM\EntityManagerInterface'
+
+  CubaDevOps\GraphApi\GraphQl\Application\CartRepository:
+    class: CubaDevOps\GraphApi\GraphQl\Application\CartRepository
+    arguments:
+      - '@Doctrine\ORM\EntityManagerInterface'

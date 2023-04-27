@@ -2,10 +2,12 @@
 
 namespace CubaDevOps\GraphApi\Entity;
 
+use CubaDevOps\TheCodingMachine\GraphQLite\Annotations\Field;
+use CubaDevOps\TheCodingMachine\GraphQLite\Annotations\Type;
 use Doctrine\ORM\Mapping as ORM;
 /**
  * PsCarrier
- *
+ * @Type
  * @ORM\Table(name="ps_carrier", indexes={@ORM\Index(name="reference", columns={"id_reference", "deleted", "active"}), @ORM\Index(name="id_tax_rules_group", columns={"id_tax_rules_group"}), @ORM\Index(name="deleted", columns={"deleted", "active"})})
  * @ORM\Entity
  */
@@ -18,7 +20,7 @@ class PsCarrier
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idCarrier;
+    private $id;
     /**
      * @var int
      *
@@ -60,7 +62,7 @@ class PsCarrier
      *
      * @ORM\Column(name="shipping_handling", type="boolean", nullable=false, options={"default"="1"})
      */
-    private $shippingHandling = \true;
+    private $shippingHandling = true;
     /**
      * @var bool
      *
@@ -139,4 +141,396 @@ class PsCarrier
      * @ORM\Column(name="grade", type="integer", nullable=true)
      */
     private $grade = '0';
+
+    /**
+     * @Field
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+
+    /**
+     * @Field
+     * @return int
+     */
+    public function getIdReference(): int
+    {
+        return $this->idReference;
+    }
+
+    /**
+     * @param int $idReference
+     * @return PsCarrier
+     */
+    public function setIdReference(int $idReference): PsCarrier
+    {
+        $this->idReference = $idReference;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return int|null
+     */
+    public function getIdTaxRulesGroup()
+    {
+        return $this->idTaxRulesGroup;
+    }
+
+    /**
+     * @param int $idTaxRulesGroup
+     * @return PsCarrier
+     */
+    public function setIdTaxRulesGroup(int $idTaxRulesGroup)
+    {
+        $this->idTaxRulesGroup = $idTaxRulesGroup;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     * @return PsCarrier
+     */
+    public function setName(string $name): PsCarrier
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return string|null
+     */
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string $url
+     * @return PsCarrier
+     */
+    public function setUrl(string $url): PsCarrier
+    {
+        $this->url = $url;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return bool
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param bool $active
+     * @return PsCarrier
+     */
+    public function setActive(bool $active): PsCarrier
+    {
+        $this->active = $active;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return bool
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * @param bool $deleted
+     * @return PsCarrier
+     */
+    public function setDeleted(bool $deleted): PsCarrier
+    {
+        $this->deleted = $deleted;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return bool
+     */
+    public function isShippingHandling(): bool
+    {
+        return $this->shippingHandling;
+    }
+
+    /**
+     * @param bool $shippingHandling
+     * @return PsCarrier
+     */
+    public function setShippingHandling(bool $shippingHandling): PsCarrier
+    {
+        $this->shippingHandling = $shippingHandling;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return bool
+     */
+    public function getRangeBehavior()
+    {
+        return $this->rangeBehavior;
+    }
+
+    /**
+     * @param bool $rangeBehavior
+     * @return PsCarrier
+     */
+    public function setRangeBehavior(bool $rangeBehavior): PsCarrier
+    {
+        $this->rangeBehavior = $rangeBehavior;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return bool
+     */
+    public function getIsModule()
+    {
+        return $this->isModule;
+    }
+
+    /**
+     * @param bool $isModule
+     * @return PsCarrier
+     */
+    public function setIsModule(bool $isModule): PsCarrier
+    {
+        $this->isModule = $isModule;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return bool
+     */
+    public function getIsFree()
+    {
+        return $this->isFree;
+    }
+
+    /**
+     * @param bool $isFree
+     * @return PsCarrier
+     */
+    public function setIsFree(bool $isFree): PsCarrier
+    {
+        $this->isFree = $isFree;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return bool
+     */
+    public function getShippingExternal()
+    {
+        return $this->shippingExternal;
+    }
+
+    /**
+     * @param bool $shippingExternal
+     * @return PsCarrier
+     */
+    public function setShippingExternal(bool $shippingExternal): PsCarrier
+    {
+        $this->shippingExternal = $shippingExternal;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return bool
+     */
+    public function getNeedRange()
+    {
+        return $this->needRange;
+    }
+
+    /**
+     * @param bool $needRange
+     * @return PsCarrier
+     */
+    public function setNeedRange(bool $needRange): PsCarrier
+    {
+        $this->needRange = $needRange;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return string|null
+     */
+    public function getExternalModuleName(): ?string
+    {
+        return $this->externalModuleName;
+    }
+
+    /**
+     * @param string $externalModuleName
+     * @return PsCarrier
+     */
+    public function setExternalModuleName(string $externalModuleName): PsCarrier
+    {
+        $this->externalModuleName = $externalModuleName;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return int
+     */
+    public function getShippingMethod()
+    {
+        return $this->shippingMethod;
+    }
+
+    /**
+     * @param int $shippingMethod
+     * @return PsCarrier
+     */
+    public function setShippingMethod(int $shippingMethod): PsCarrier
+    {
+        $this->shippingMethod = $shippingMethod;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return int
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
+     * @param int $position
+     * @return PsCarrier
+     */
+    public function setPosition(int $position): PsCarrier
+    {
+        $this->position = $position;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return int|null
+     */
+    public function getMaxWidth()
+    {
+        return $this->maxWidth;
+    }
+
+    /**
+     * @param int $maxWidth
+     * @return PsCarrier
+     */
+    public function setMaxWidth(int $maxWidth): PsCarrier
+    {
+        $this->maxWidth = $maxWidth;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return int|null
+     */
+    public function getMaxHeight()
+    {
+        return $this->maxHeight;
+    }
+
+    /**
+     * @param int $maxHeight
+     * @return PsCarrier
+     */
+    public function setMaxHeight(int $maxHeight): PsCarrier
+    {
+        $this->maxHeight = $maxHeight;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return int|null
+     */
+    public function getMaxDepth()
+    {
+        return $this->maxDepth;
+    }
+
+    /**
+     * @param int $maxDepth
+     * @return PsCarrier
+     */
+    public function setMaxDepth(int $maxDepth): PsCarrier
+    {
+        $this->maxDepth = $maxDepth;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return string|null
+     */
+    public function getMaxWeight(): ?string
+    {
+        return $this->maxWeight;
+    }
+
+    /**
+     * @param string $maxWeight
+     * @return PsCarrier
+     */
+    public function setMaxWeight(string $maxWeight): PsCarrier
+    {
+        $this->maxWeight = $maxWeight;
+        return $this;
+    }
+
+    /**
+     * @Field
+     * @return string|null
+     */
+    public function getGrade()
+    {
+        return $this->grade;
+    }
+
+    /**
+     * @param string $grade
+     * @return PsCarrier
+     */
+    public function setGrade(string $grade): PsCarrier
+    {
+        $this->grade = $grade;
+        return $this;
+    }
+
+
 }

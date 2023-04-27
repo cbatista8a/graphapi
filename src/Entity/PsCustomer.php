@@ -2,10 +2,13 @@
 
 namespace CubaDevOps\GraphApi\Entity;
 
+use CubaDevOps\TheCodingMachine\GraphQLite\Annotations\Field;
+use CubaDevOps\TheCodingMachine\GraphQLite\Annotations\Type;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 /**
  * PsCustomer
- *
+ * @Type
  * @ORM\Table(name="ps_customer", indexes={@ORM\Index(name="id_customer_passwd", columns={"id_customer", "passwd"}), @ORM\Index(name="id_shop_group", columns={"id_shop_group"}), @ORM\Index(name="id_gender", columns={"id_gender"}), @ORM\Index(name="customer_login", columns={"email", "passwd"}), @ORM\Index(name="customer_email", columns={"email"}), @ORM\Index(name="id_shop", columns={"id_shop", "date_add"})})
  * @ORM\Entity
  */
@@ -18,19 +21,19 @@ class PsCustomer
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idCustomer;
+    private $id;
     /**
      * @var int
      *
      * @ORM\Column(name="id_shop_group", type="integer", nullable=false, options={"default"="1","unsigned"=true})
      */
     private $idShopGroup = '1';
+
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id_shop", type="integer", nullable=false, options={"default"="1","unsigned"=true})
+     * @ORM\ManyToOne(targetEntity="PsShop")
+     * @ORM\JoinColumn(name="id_shop", referencedColumnName="id_shop")
      */
-    private $idShop = '1';
+    private PsShop $shop;
     /**
      * @var int
      *
@@ -43,12 +46,19 @@ class PsCustomer
      * @ORM\Column(name="id_default_group", type="integer", nullable=false, options={"default"="1","unsigned"=true})
      */
     private $idDefaultGroup = '1';
+
     /**
-     * @var int|null
-     *
-     * @ORM\Column(name="id_lang", type="integer", nullable=true, options={"unsigned"=true})
+     * @ORM\ManyToOne(targetEntity="PsLang")
+     * @ORM\JoinColumn(name="id_lang", referencedColumnName="id_lang")
      */
-    private $idLang;
+    private PsLang $lang;
+
+
+    /**
+     * @var Collection<int, PsAddress>
+     * @ORM\OneToMany(targetEntity="PsAddress", mappedBy="customer")
+     */
+    private Collection $addresses;
     /**
      * @var int
      *
@@ -97,12 +107,7 @@ class PsCustomer
      * @ORM\Column(name="passwd", type="string", length=255, nullable=false)
      */
     private $passwd;
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="last_passwd_gen", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
-     */
-    private $lastPasswdGen = 'CURRENT_TIMESTAMP';
+
     /**
      * @var \DateTime|null
      *
@@ -211,4 +216,32 @@ class PsCustomer
      * @ORM\Column(name="reset_password_validity", type="datetime", nullable=true)
      */
     private $resetPasswordValidity;
+
+    /**
+     * @Field
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @Field
+     * @return PsAddress[]
+     */
+    public function getAddresses(): array
+    {
+        return $this->addresses->getValues();
+    }
+
+    /**
+     * @param PsAddress $address
+     * @return PsCustomer
+     */
+    public function addAddress(PsAddress $address): self
+    {
+        $this->addresses->add($address);
+        return $this;
+    }
 }
