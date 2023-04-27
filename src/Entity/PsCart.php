@@ -2,9 +2,7 @@
 
 namespace CubaDevOps\GraphApi\Entity;
 
-use CubaDevOps\___PHPSTORM_HELPERS\this;
 use CubaDevOps\TheCodingMachine\GraphQLite\Annotations\Field;
-use CubaDevOps\TheCodingMachine\GraphQLite\Annotations\Mutation;
 use CubaDevOps\TheCodingMachine\GraphQLite\Annotations\Type;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -28,7 +26,7 @@ class PsCart
 
     /**
      * @var Collection<int, PsCartProduct>
-     * @ORM\OneToMany(targetEntity="PsCartProduct", mappedBy="cart", cascade="persist")
+     * @ORM\OneToMany(targetEntity="PsCartProduct", mappedBy="cart", cascade={"persist", "remove", "merge"}, orphanRemoval=true)
      *
      */
     private Collection $cart_products;
@@ -507,11 +505,14 @@ class PsCart
 
         $index = $this->cart_products->indexOf($this->last_product_cached);
 
-        if($cart_product->getQuantity() > 0){
-            $override ? $this->cart_products[$index]->setQuantity($cart_product->getQuantity()) : $this->cart_products[$index]->addQuantity($cart_product->getQuantity());
-        }else{
-            $this->cart_products->remove($index);
+        if(!$cart_product->getQuantity()) {
+            $this->removeFromCart($this->last_product_cached);
+            return true;
         }
+
+
+        $override ? $this->cart_products[$index]->setQuantity($cart_product->getQuantity()) : $this->cart_products[$index]->addQuantity($cart_product->getQuantity());
+
         return true;
     }
 
@@ -530,6 +531,15 @@ class PsCart
             }
         }
         return false;
+    }
+
+    /**
+     * @param PsCartProduct $product
+     * @return void
+     */
+    public function removeFromCart(PsCartProduct $product): void
+    {
+        $this->cart_products->removeElement($product);
     }
 
 

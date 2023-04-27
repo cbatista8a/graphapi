@@ -40,7 +40,7 @@ class CartRepository
     public function addToCart(int $id_customer,int $id_product, int $quantity): ?PsCart
     {
         /** @var PsProduct|null $product */
-        if (($cart = $this->cart($id_customer)) && ($product = $this->entity_manager->find(PsProduct::class, $id_product))){
+        if ($quantity && ($cart = $this->cart($id_customer)) && ($product = $this->entity_manager->find(PsProduct::class, $id_product))){
 
             $product_cart = new PsCartProduct();
             $product_cart->setProduct($product)
@@ -49,8 +49,9 @@ class CartRepository
             $cart->addProduct($product_cart);
             $this->entity_manager->persist($cart);
             $this->entity_manager->flush();
+            return $cart;
         }
-        return $cart;
+        return null;
     }
 
     /**

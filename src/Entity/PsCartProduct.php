@@ -170,7 +170,7 @@ class PsCartProduct
      * @Field
      * @return int
      */
-    public function getQuantity()
+    public function getQuantity(): int
     {
         return $this->quantity;
     }
@@ -185,6 +185,10 @@ class PsCartProduct
         return $this;
     }
 
+    /**
+     * @param int $new_quantity
+     * @return void
+     */
     public function addQuantity(int $new_quantity)
     {
         $this->quantity += $new_quantity;
