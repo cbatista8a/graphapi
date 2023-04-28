@@ -38,3 +38,9 @@ services:
     class: CubaDevOps\GraphApi\GraphQl\Application\CartRepository
     arguments:
       - '@Doctrine\ORM\EntityManagerInterface'
+
+  CubaDevOps\GraphApi\GraphQl\Application\CustomerRepository:
+    class: CubaDevOps\GraphApi\GraphQl\Application\CustomerRepository
+    arguments:
+      - '@Doctrine\ORM\EntityManagerInterface'
+      - '@hashing'

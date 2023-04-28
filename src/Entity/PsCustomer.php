@@ -6,6 +6,8 @@ use CubaDevOps\TheCodingMachine\GraphQLite\Annotations\Field;
 use CubaDevOps\TheCodingMachine\GraphQLite\Annotations\Type;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use PrestaShop\PrestaShop\Core\Crypto\Hashing;
+
 /**
  * PsCustomer
  * @Type
@@ -119,7 +121,7 @@ class PsCustomer
      *
      * @ORM\Column(name="newsletter", type="boolean", nullable=false)
      */
-    private $newsletter = '0';
+    private $newsletter = 0;
     /**
      * @var string|null
      *
@@ -137,7 +139,7 @@ class PsCustomer
      *
      * @ORM\Column(name="optin", type="boolean", nullable=false)
      */
-    private $optin = '0';
+    private $optin = 0;
     /**
      * @var string|null
      *
@@ -155,13 +157,13 @@ class PsCustomer
      *
      * @ORM\Column(name="show_public_prices", type="boolean", nullable=false)
      */
-    private $showPublicPrices = '0';
+    private $showPublicPrices = 0;
     /**
      * @var int
      *
      * @ORM\Column(name="max_payment_days", type="integer", nullable=false, options={"default"="60","unsigned"=true})
      */
-    private $maxPaymentDays = '60';
+    private $maxPaymentDays = 60;
     /**
      * @var string
      *
@@ -179,19 +181,19 @@ class PsCustomer
      *
      * @ORM\Column(name="active", type="boolean", nullable=false)
      */
-    private $active = '0';
+    private $active = 0;
     /**
      * @var bool
      *
      * @ORM\Column(name="is_guest", type="boolean", nullable=false)
      */
-    private $isGuest = '0';
+    private $isGuest = 0;
     /**
      * @var bool
      *
      * @ORM\Column(name="deleted", type="boolean", nullable=false)
      */
-    private $deleted = '0';
+    private $deleted = 0;
     /**
      * @var \DateTime
      *
@@ -697,6 +699,30 @@ class PsCustomer
     {
         $this->resetPasswordValidity = $resetPasswordValidity;
         return $this;
+    }
+
+    /**
+     * @param string $hashed_passwd
+     * @return PsCustomer
+     */
+    public function setPasswd(string $hashed_passwd): PsCustomer
+    {
+        $this->passwd = $hashed_passwd;
+        return $this;
+    }
+
+    /**
+     * the hashed password
+     * @return string
+     */
+    public function getPassword(): string
+    {
+        return $this->passwd;
+    }
+
+    public function verifyPasswd(string $hashed_passwd): bool
+    {
+        return $this->passwd == $hashed_passwd;
     }
 
 
