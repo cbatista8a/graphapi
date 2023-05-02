@@ -31,7 +31,7 @@ class graphapiGraphApiModuleFrontController extends ModuleFrontController
         $vars = $input['variables'] ?? null;
 
         try {
-            $result['response'] = $this->get(ApiHandler::class)->handle($query,$vars);
+            $result = $this->get(ApiHandler::class)->handle($query,$vars);
         }catch (Exception $exception){
             $result['errors'] = $exception->getMessage();
         }
