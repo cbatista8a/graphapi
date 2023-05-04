@@ -16,7 +16,6 @@
 
 use CubaDevOps\GraphApi\GraphQl\Infrastructure\ApiHandler;
 
-
 class graphapiGraphApiModuleFrontController extends ModuleFrontController
 {
     /**
@@ -24,18 +23,32 @@ class graphapiGraphApiModuleFrontController extends ModuleFrontController
      */
     public function initContent()
     {
+        $profiler = _PS_DEBUG_PROFILING_ ? Profiler::getInstance() : null;
+        $request_time = microtime(true);
         $result = [];
         $rawInput = file_get_contents('php://input');
         $input = json_decode($rawInput,true);
         $query = $input['query'];
         $vars = $input['variables'] ?? null;
 
+        $read_request_time = microtime(true);
         try {
             $result = $this->get(ApiHandler::class)->handle($query,$vars);
         }catch (Exception $exception){
             $result['errors'] = $exception->getMessage();
         }
-
+        $after_graph_handle_time = microtime(true);
+        $result['performance'] = [
+            'read_request_time' => number_format($read_request_time - $request_time, 4),
+            'graphapi_handle_time' => number_format($after_graph_handle_time - $read_request_time, 4),
+            'total_time' => number_format($after_graph_handle_time - $request_time, 4)
+        ];
+        if (_PS_DEBUG_PROFILING_){
+            $profiler->processData();
+            $result['performance']['ps_profiler'] = $profiler->getSmartyVariables();
+            unset($result['performance']['ps_profiler']['doublesQueries']);
+            unset($result['performance']['ps_profiler']['files']);
+        }
         die(json_encode($result));
     }
 }
