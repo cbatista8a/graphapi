@@ -44,3 +44,8 @@ services:
     arguments:
       - '@Doctrine\ORM\EntityManagerInterface'
       - '@hashing'
+
+  CubaDevOps\GraphApi\GraphQl\Application\PaymentRepository:
+    class: CubaDevOps\GraphApi\GraphQl\Application\PaymentRepository
+    arguments:
+      - '@service_container'
