@@ -5,6 +5,7 @@ namespace CubaDevOps\GraphApi\GraphQl\Application;
 use CartRule;
 use Context;
 use CubaDevOps\GraphApi\Entity\PsCustomer;
+use CubaDevOps\GraphApi\Utils\Auth;
 use CubaDevOps\TheCodingMachine\GraphQLite\Annotations\Mutation;
 use CubaDevOps\TheCodingMachine\GraphQLite\Annotations\Query;
 use Customer;
@@ -14,6 +15,7 @@ use PrestaShop\PrestaShop\Core\Crypto\Hashing;
 
 class CustomerRepository
 {
+    use Auth;
 
     private Hashing $crypto;
     private EntityManagerInterface $entity_manager;
@@ -26,16 +28,15 @@ class CustomerRepository
 
     /**
      * @Query
-     * @param int $customer_id
      * @return PsCustomer|null
      * @noinspection PhpIncompatibleReturnTypeInspection
      */
-    public function customer(int $customer_id): ?PsCustomer
+    public function customer(): ?PsCustomer
     {
-        if (!self::getIsLoged()){
+        if (!self::isLoged()){
             return null;
         }
-        return $this->entity_manager->getRepository(PsCustomer::class)->find($customer_id);
+        return $this->entity_manager->getRepository(PsCustomer::class)->find(Context::getContext()->customer->id);
     }
 
     /**
@@ -47,6 +48,10 @@ class CustomerRepository
      */
     public function login(string $email, string $password): ?PsCustomer
     {
+        if ($customer = $this->customer()){
+            return $customer;
+        }
+
         /** @var PsCustomer|null $customer */
         $customer = $this->entity_manager->getRepository(PsCustomer::class)->findOneBy(["email" => $email]);
         if (!$customer || $customer->getIsGuest() || !$customer->getActive()) {
@@ -76,15 +81,15 @@ class CustomerRepository
     public function logout(): bool
     {
         Context::getContext()->customer->logout();
-        return self::getIsLoged();
+        return false;
     }
 
     /**
      * @Query
      * @return bool
      */
-    public static function getIsLoged(): bool
+    public function getIsLoged(): bool
     {
-        return Context::getContext()->customer->isLogged();
+        return self::isLoged();
     }
 }
