@@ -28,6 +28,7 @@ class ApiHandler
         $factory = new SchemaFactory(new Psr16Cache($adapter), $container);
         $factory->addControllerNamespace('CubaDevOps\\GraphApi\\GraphQl\\Application\\')
                 ->addTypeNamespace('CubaDevOps\\GraphApi\\Entity\\');
+        _PS_MODE_DEV_ ? $factory->devMode() : $factory->prodMode();
         $this->schema = $factory->createSchema();
     }
     public function handle($query, $variables) : array
