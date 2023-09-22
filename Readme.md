@@ -19,7 +19,7 @@ Before using this module, ensure you have the following prerequisites installed:
 
 - [PrestaShop](https://prestashop.com/versions/) (min version 1.7)
 - [Composer](https://getcomposer.org/)
-- [ChromeiQL - Chrome extension for the GraphiQL tool](https://chrome.google.com/webstore/detail/chromeiql/fkkiamalmpiidkljmicmjfbieiclmeij) (not included with PrestaShop)
+- [ChromeiQL - Chrome extension for the GraphiQL tool](https://chrome.google.com/webstore/detail/chromeiql/fkkiamalmpiidkljmicmjfbieiclmeij) (not included with PrestaShop, this is optional: maybe you use other client for interrogate GraphQL api and is perfectly)
 
 ### Installation
 
@@ -27,7 +27,7 @@ Before using this module, ensure you have the following prerequisites installed:
 
    ```bash
    git clone https://github.com/cbatista8a/graphapi.git modules/graphapi
-   cd modules/grahapi
+   cd modules/graphapi
    composer install
    ```
    
