@@ -38,7 +38,8 @@
   "require-dev": {
     "phpunit/phpunit": "^9.6",
     "humbug/php-scoper": "^0.17.5",
-    "friendsofphp/php-cs-fixer": "*"
+    "friendsofphp/php-cs-fixer": "*",
+    "prestashop/autoindex": "*",
   },
   "config": {
     "prepend-autoloader": false,
@@ -48,6 +49,7 @@
   },
   "type": "prestashop-module",
   "scripts": {
+    "index": "./vendor/bin/autoindex prestashop:add:index .",
     "format": "./vendor/bin/php-cs-fixer fix . --rules=@PSR12,@Symfony",
     "test": "./vendor/bin/phpunit tests",
     "prefix-namespace": "vendor/bin/php-scoper add-prefix --force",
