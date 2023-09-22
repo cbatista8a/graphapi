@@ -19,7 +19,7 @@ Before using this module, ensure you have the following prerequisites installed:
 
 - [PrestaShop](https://prestashop.com/versions/) (min version 1.7)
 - [Composer](https://getcomposer.org/)
-- [ChromeiQL - Chrome extension for the GraphiQL tool](https://chrome.google.com/webstore/detail/chromeiql/fkkiamalmpiidkljmicmjfbieiclmeij) (not included with PrestaShop, this is optional: maybe you use other client for interrogate GraphQL api and is perfectly)
+- [ChromeiQL - Chrome extension for the GraphiQL tool](https://chrome.google.com/webstore/detail/chromeiql/fkkiamalmpiidkljmicmjfbieiclmeij) (not included with PrestaShop, this is optional: maybe you use another client to interrogate the GraphQL API and it is also perfectly valid.)
 
 ### Installation
 
@@ -79,11 +79,13 @@ Thank you for considering contributing to this project! To get started, follow t
 If you have any questions or need further assistance, feel free to reach out to the project maintainer:
 
 Author: Carlos Batista | [CubaDevOps](https://cubadevops.com) Founder
+
 Email: carlos.batista@cubadevops.com
 
 ### Acknowledgments
 
 [PrestaShop](https://www.prestashop.com/) - The e-commerce platform used as the foundation for this module.
-[Hacktoberfest](https://hacktoberfest.digitalocean.com/) - Celebrating open source contributions every October.
+
+[Hacktoberfest](https://hacktoberfest.digitalocean.com/) - for celebrating open source contributions every October and inspiring me to open this private repository to the community.
 
 We appreciate your interest in contributing to open source and hope you find this module useful!
