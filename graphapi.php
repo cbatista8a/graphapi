@@ -53,7 +53,7 @@ class GraphApi extends Module implements WidgetInterface
 
         $this->confirmUninstall = $this->trans('Are you sure you want to uninstall this module?',[],'Modules.Graphapi.Admin');
 
-        $this->ps_versions_compliancy = array('min' => '1.7', 'max' => _PS_VERSION_);
+        $this->ps_versions_compliancy = array('min' => '1.7', 'max' => '1.7.8.10');
 
 
         $this->autoload();
