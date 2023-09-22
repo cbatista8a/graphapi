@@ -1,9 +1,13 @@
 {
-  "name": "cbatista8a/prestashop-graphapi-module",
-  "description": "Advanced API for Prestashop development",
+  "name": "cbatista8a/graphapi",
+  "description": "The GraphAPI module for PrestaShop is a powerful tool that enables dynamic GraphQL-based access to your PrestaShop store's resources.",
   "minimum-stability": "stable",
-  "license": "MIT",
+  "license": "Apache 2.0",
   "authors": [
+    {
+      "name": "Carlos Batista",
+      "email": "carlos.batista@cubadevops.com"
+    },
     {
       "name": "Cuba DevOps",
       "email": "info@cubadevops.com"
