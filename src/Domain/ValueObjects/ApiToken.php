@@ -19,4 +19,10 @@ class ApiToken
     {
         return $this->value;
     }
+
+    
+    public function isValid()
+    {
+        //Todo implement validation mecanism based on PrestaShop webhooks tokens created on BackOffice
+    }
 }
