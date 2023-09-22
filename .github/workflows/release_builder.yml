@@ -1,0 +1,61 @@
+name: Release Builder
+
+on:
+  create:
+    tags:
+      - 'v*'
+
+permissions: write-all
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: get_changeLog
+        id: changelog
+        # Get the history of changes from the last tag to HEAD
+        run: |
+          last_tag=$(git describe --tags --abbrev=0)
+          changelog=$(git log --oneline --pretty=format:"- %s" $last_tag..HEAD)
+          echo "changelog=$changelog" >> $GITHUB_OUTPUT
+          echo "tag=$last_tag" >> $GITHUB_OUTPUT 
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Format Code
+        run: composer run-script format
+
+      - name: Namespace Prefix
+        run: composer run-script prefix-namespace && composer run-script clean && composer run-script build
+
+      - name: Clean Vendor Dev Dependencies
+        run: |
+          composer install --no-dev
+          cp ./index.php ./vendor/composer/index.php
+          cp ./index.php ./vendor/index.php
+          zip -r grahapi.zip .
+
+      - name: Build Artifact
+        uses: ncipollo/release-action@v1.12.0
+        with:
+          artifacts: ./grahapi.zip
+          allowUpdates: true
+          name: Prestashop Module ${{ steps.changelog.outputs.tag }}
+          body: ${{ steps.changelog.outputs.changelog }}
