@@ -40,7 +40,7 @@ jobs:
         run: composer install --prefer-dist --no-progress
 
       - name: Format Code
-        run: composer run-script format
+        run: composer run-script format && composer run-script index
 
       - name: Namespace Prefix
         run: composer run-script prefix-namespace && composer run-script clean && composer run-script build
