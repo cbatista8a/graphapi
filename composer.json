@@ -39,7 +39,7 @@
     "phpunit/phpunit": "^9.6",
     "humbug/php-scoper": "^0.17.5",
     "friendsofphp/php-cs-fixer": "*",
-    "prestashop/autoindex": "*",
+    "prestashop/autoindex": "*"
   },
   "config": {
     "prepend-autoloader": false,
