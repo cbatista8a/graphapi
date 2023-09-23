@@ -1,5 +1,7 @@
 # GraphAPI Module for PrestaShop
 
+[![Release Builder](https://github.com/cbatista8a/graphapi/actions/workflows/release_builder.yml/badge.svg)](https://github.com/cbatista8a/graphapi/actions/workflows/release_builder.yml)
+
 ## Overview
 
 The GraphAPI module for PrestaShop is a powerful tool that enables dynamic GraphQL-based access to your PrestaShop store's resources. This module allows clients to query and retrieve only the data they need, optimizing performance and providing a flexible API for your e-commerce platform.
