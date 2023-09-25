@@ -50,12 +50,12 @@ jobs:
           composer install --no-dev
           cp ./index.php ./vendor/composer/index.php
           cp ./index.php ./vendor/index.php
-          zip -r grahapi.zip .
+          zip -r graphapi.zip .
 
       - name: Build Artifact
         uses: ncipollo/release-action@v1.12.0
         with:
-          artifacts: ./grahapi.zip
+          artifacts: ./graphapi.zip
           allowUpdates: true
           name: Prestashop Module ${{ steps.changelog.outputs.tag }}
           body: ${{ steps.changelog.outputs.changelog }}
