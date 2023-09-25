@@ -37,10 +37,11 @@ Before using this module, ensure you have the following prerequisites installed:
    composer prefix-namespace
    composer clean
    composer build
+   composer install --no-dev
    ```
    
-2. Navigate to your PrestaShop admin panel and go to Modules and Services.
-3. Find the "GraphAPI" module and click "Install."
+3. Navigate to your PrestaShop admin panel and go to Modules and Services.
+4. Find the "GraphAPI" module and click "Install."
 
 ### Usage
 
