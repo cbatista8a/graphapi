@@ -67,7 +67,7 @@ Before using this module, ensure you have the following prerequisites installed:
 ```
 ### Performance Monitoring
 
-You can monitor the performance of your GraphAPI requests by inspecting the response's `performance` object, which includes timing information.
+You can monitor the performance of your GraphAPI requests by inspecting the response's `performance` object (when Debug mode or profiling are enabled), which includes timing information.
 
 ### License
 
