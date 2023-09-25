@@ -1,7 +1,6 @@
 <?php
 
 
-
 /**
  * Copyright (c) 2022.  <CubaDevOps>
  *
@@ -19,36 +18,43 @@ use CubaDevOps\GraphApi\GraphQl\Infrastructure\ApiHandler;
 class graphapiGraphApiModuleFrontController extends ModuleFrontController
 {
     /**
-     * @throws Exception
+     * @throws \RuntimeException|Exception
      */
     public function initContent()
     {
-        $profiler = _PS_DEBUG_PROFILING_ ? Profiler::getInstance() : null;
         $request_time = microtime(true);
         $result = [];
         $rawInput = file_get_contents('php://input');
-        $input = json_decode($rawInput,true);
+        $input = json_decode($rawInput, true);
         $query = $input['query'];
         $vars = $input['variables'] ?? null;
 
-        $read_request_time = microtime(true);
         try {
-            $result = $this->get(ApiHandler::class)->handle($query,$vars);
-        }catch (Exception $exception){
+            $result = $this->get(ApiHandler::class)->handle($query, $vars);
+        } catch (\RuntimeException $exception) {
             $result['errors'] = $exception->getMessage();
         }
-        $after_graph_handle_time = microtime(true);
-        $result['performance'] = [
-            'read_request_time' => number_format($read_request_time - $request_time, 4),
-            'graphapi_handle_time' => number_format($after_graph_handle_time - $read_request_time, 4),
-            'total_time' => number_format($after_graph_handle_time - $request_time, 4)
-        ];
-        if (_PS_DEBUG_PROFILING_){
+
+        if (_PS_MODE_DEV_) {
+            $result['performance']['graphapi_handle_time'] = $this->getElapsedTime($request_time);
+        }
+
+        if (_PS_DEBUG_PROFILING_) {
+            $profiler = Profiler::getInstance();
             $profiler->processData();
             $result['performance']['ps_profiler'] = $profiler->getSmartyVariables();
             unset($result['performance']['ps_profiler']['doublesQueries']);
-            unset($result['performance']['ps_profiler']['files']);
+            $result['performance']['total_time'] = $this->getElapsedTime($request_time);
         }
         die(json_encode($result));
+    }
+
+    /**
+     * @param float $initial_time from microtime(true)
+     * @return string
+     */
+    public function getElapsedTime(float $initial_time): string
+    {
+        return number_format(microtime(true) - $initial_time, 4). ' s';
     }
 }
