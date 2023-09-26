@@ -11,13 +11,22 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+
+    env:
+      PHP_VERSION: 7.4
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      - name: Set up PHP ${{ env.PHP_VERSION }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: intl, zip
+
       - name: get_changeLog
         id: changelog
-        # Get the history of changes from the last tag to HEAD
         run: |
           last_tag=$(git describe --tags --abbrev=0)
           changelog=$(git log --oneline --pretty=format:"- %s" $last_tag..HEAD)
@@ -32,7 +41,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: vendor
-          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          key: ${{ runner.os }}-php-${{ env.PHP_VERSION }}-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-php-
 
@@ -57,5 +66,5 @@ jobs:
         with:
           artifacts: ./graphapi.zip
           allowUpdates: true
-          name: Prestashop Module ${{ steps.changelog.outputs.tag }}
+          name: Version ${{ steps.changelog.outputs.tag }}-PHP-${{ env.PHP_VERSION }}
           body: ${{ steps.changelog.outputs.changelog }}
