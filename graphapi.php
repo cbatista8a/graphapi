@@ -41,13 +41,13 @@ class GraphApi extends Module implements WidgetInterface
         $this->name = 'graphapi';
         $this->tab = 'administration';
         $this->version = '1.0.0';
-        $this->author = 'Cuba Devops';
+        $this->author = 'CubaDevOps';
         $this->need_instance = 1;
         $this->bootstrap = true;
 
         parent::__construct();
 
-        $this->displayName = $this->trans('Graphapi Module',[],'Modules.Graphapi.Admin');
+        $this->displayName = $this->trans('GraphApi Module',[],'Modules.Graphapi.Admin');
         $this->description = $this->trans('Advanced API for Prestashop development',[],'Modules.Graphapi.Admin');
 
         $this->confirmUninstall = $this->trans('Are you sure you want to uninstall this module?',[],'Modules.Graphapi.Admin');
