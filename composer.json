@@ -38,8 +38,8 @@
   "require-dev": {
     "phpunit/phpunit": "^9.6",
     "humbug/php-scoper": "^0.17.5",
-    "friendsofphp/php-cs-fixer": "*",
-    "prestashop/autoindex": "*"
+    "friendsofphp/php-cs-fixer": "^3.34",
+    "prestashop/autoindex": "^2.1"
   },
   "config": {
     "prepend-autoloader": false,
