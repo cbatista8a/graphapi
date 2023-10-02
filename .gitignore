@@ -39,7 +39,6 @@ composer.phar
 /bin/*
 !bin/console
 !bin/symfony_requirements
-/vendor/
 
 # Assets and user uploads
 /web/bundles/
@@ -66,3 +65,6 @@ composer.phar
 
 # Mac OS
 *.DS_Store
+
+# Dev
+*.cache
