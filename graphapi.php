@@ -110,8 +110,7 @@ class GraphApi extends Module implements WidgetInterface
 
         $form_fields = new FormFieldsDefinition($this->name);
         $form_fields->addField(new FormField(self::PREFIX . 'ACTIVE', ''))
-                    ->addField(new FormField(self::PREFIX . 'LIVE_MODE', ''))
-                    ->addField(new FormField(self::PREFIX . 'TEXT', array_fill_keys(Language::getIDs(), ''),true));
+                    ->addField(new FormField(self::PREFIX . 'TOKEN', ''));
         return $form_fields;
     }
 
@@ -244,8 +243,7 @@ class GraphApi extends Module implements WidgetInterface
                     array(
                         'col' => 4,
                         'type' => 'text',
-                        'lang' => true,
-                        'prefix' => '<i class="icon icon-envelope"></i>',
+                        'prefix' => '<i class="icon icon-key"></i>',
                         'desc' => $this->trans('Api Token',[],'Modules.Graphapi.Admin'),
                         'name' => self::PREFIX . 'TOKEN',
                         'label' => $this->trans('TOKEN',[],'Modules.Graphapi.Admin'),
