@@ -26,8 +26,8 @@
 <div class="panel">
 	<div class="row moduleconfig-header">
 		<div class="col-xs-12 text-center" style="display: flex;justify-content: center;">
-			<h2>{l s='By Cuba Devops' d="Modules.Graphapi.Admin"}</h2>
-			<img src="{$module_dir|escape:'html':'UTF-8'}logo.png" width="84px" height="84px"/>
+			<h2>{l s='By CubaDevOps' d="Modules.Graphapi.Admin"}</h2>
+			<img src="{$module_dir|escape:'html':'UTF-8'}logo.png" width="84px" height="auto"/>
 		</div>
 	</div>
 </div>
