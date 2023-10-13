@@ -24,8 +24,8 @@ class graphapiGraphApiModuleFrontController extends ModuleFrontController
         $request_time = microtime(true);
         $result = [];
         $rawInput = file_get_contents('php://input');
-        $input = json_decode($rawInput, true);
-        $query = $input['query'];
+        $input = $this->decodeQuery($rawInput);
+        $query = $input['query'] ?? '{}';
         $vars = $input['variables'] ?? null;
 
         try {
@@ -45,15 +45,32 @@ class graphapiGraphApiModuleFrontController extends ModuleFrontController
             unset($result['performance']['ps_profiler']['doublesQueries']);
             $result['performance']['total_time'] = $this->getElapsedTime($request_time);
         }
-        die(json_encode($result));
+        $this->releaseAjaxJsonResponse($result);
     }
 
     /**
      * @param float $initial_time from microtime(true)
-     * @return string
      */
     public function getElapsedTime(float $initial_time): string
     {
         return number_format(microtime(true) - $initial_time, 4). ' s';
+    }
+
+    /**
+     * @return array|void
+     */
+    private function decodeQuery(string $raw_input)
+    {
+        try {
+            return json_decode($raw_input, true, 512, JSON_THROW_ON_ERROR);
+        } catch (Exception $exception) {
+            $result['errors'] = 'Json Query: '.$exception->getMessage();
+            $this->releaseAjaxJsonResponse($result);
+        }
+    }
+
+    public function releaseAjaxJsonResponse(array $result): void
+    {
+        exit(json_encode($result, JSON_PRETTY_PRINT));
     }
 }
